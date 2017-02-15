@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ifsCast Sender</title>
+  <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+  <script type="text/javascript" src="ifsSender.js"></script>
+</head>
+<body>
+
+<button onclick="init()" id="init" style="display: none">init</button>
+<button onclick="ifsCast.play(10)" id="ifsCastElement" style="display: none">Send to Chromecast</button>
+
+<script type="text/javascript">
+  window.onload = function () {
+    window.ifsCast = new IfsSender(function (hasSupport) {
+      if (hasSupport) {
+        document.getElementById('init').style.display = 'block';
+      }
+    }, true);
+  };
+
+  function init() {
+    ifsCast.init(function () {
+      document.getElementById('init').style.display = 'none';
+      document.getElementById('ifsCastElement').style.display = 'block';
+    });
+  }
+</script>
+</body>
+</html>
