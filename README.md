@@ -2,10 +2,14 @@
 
 Show our Image from Space ( https://www.kreativitaet-trifft-technik.de/images_from_space.html ) on a Chromcast.
 
+# Demo
+
+You find the sender button here https://www.kreativitaet-trifft-technik.de/images_from_space.html (visible only in Chrome browser).
 
 # Libs
 
 * https://www.willmcgugan.com/blog/tech/post/ken-burns-effect-with-javascript-and-canvas/
+  (patched for writing the current fps and more parameter for the callback) Attention: This lib licensed under AGPL.
 
 # Documentation
 
@@ -23,6 +27,3 @@ Show our Image from Space ( https://www.kreativitaet-trifft-technik.de/images_fr
 
 * Api Docs: https://developers.google.com/cast/docs/reference/chrome/
 * Example: https://github.com/googlecast/CastVideos-chrome/
-
-
-
