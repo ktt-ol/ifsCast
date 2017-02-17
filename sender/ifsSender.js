@@ -1,7 +1,7 @@
 'use strict';
 
 var MESSAGE_BUS_NAMESPACE = 'urn:x-cast:io.mainframe.ifsCast';
-var APPLICATION_ID = '2A8B9CE7';
+var APPLICATION_ID = 'BDBCA6CF';
 
 var IfsSender = function (supportCallback, isDebug) {
   this._debug = isDebug;
@@ -80,7 +80,7 @@ IfsSender.prototype._sendMessage = function () {
       startIndex: this._startIndex
     }
   };
-  this._session.sendMessage('urn:x-cast:io.mainframe.ifsCast', playlist);
+  this._session.sendMessage(MESSAGE_BUS_NAMESPACE, playlist);
 };
 
 
