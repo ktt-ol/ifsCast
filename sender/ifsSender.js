@@ -95,8 +95,8 @@ IfsSender.prototype._sessionListener = function (session) {
   this._session = session;
   if (session) {
     this.log('Got session:', session);
-    // $('#chromecast').html("Connected to <b>" + session.receiver.friendlyName + "</b>");
-    // $('#sender').show();
+    session.addUpdateListener(this._sessionUpdateListener.bind(this));
+
     if (this._waitingOnSession) {
       this._sendMessage();
     }
@@ -114,6 +114,14 @@ IfsSender.prototype._receiverListener = function (e) {
   }
   else {
     this.log("Receiver list is empty.");
+  }
+};
+
+
+IfsSender.prototype._sessionUpdateListener = function (isAlive) {
+  if (!isAlive) {
+    this.log('Session ended.');
+    this._session = null;
   }
 };
 
