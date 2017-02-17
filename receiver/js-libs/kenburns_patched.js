@@ -34,8 +34,12 @@
 		var frames_per_second = options.frames_per_second || 30;		
 		var frame_time = (1 / frames_per_second) * 1000;
 		var zoom_level = 1 / (options.zoom || 2);
-		var clear_color = options.background_color || '#000000';	
-		
+		var clear_color = options.background_color || '#000000';
+
+		// PATCH: stores the fps and updates
+		var updates = 0;
+		var lastFps = 0;
+
 		var images = [];
 		$(image_paths).each(function(i, image_path){
 			images.push({path:image_path,
@@ -153,9 +157,19 @@
 					ctx.save();
 					ctx.globalAlpha = Math.min(1, transparency);
 					ctx.drawImage(image_info.image, r[0], r[1], r[2] - r[0], r[3] - r[1], 0, 0, width, height);
+					// PATCH: draws the fps
+					ctx.fillStyle = '#fff';
+					ctx.shadowOffsetX = 3;
+					ctx.shadowOffsetY = 3;
+					ctx.shadowBlur = 4;
+					ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+					ctx.font = '20px sans-serif';
+					ctx.fillText('fps: ' + lastFps, width - 80, height - 20);
+					// ----
 					ctx.restore();
 				}
 			}
+
 		}				
 		
 		function clear() {
@@ -166,10 +180,17 @@
 			ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			ctx.restore();
 		}
-		
+
+		// PATCH: calculates the fps
+		function updateCalc() {
+			lastFps = updates;
+			updates = 0;
+		}
+
 		function update() {
+			updates++;
 			// Render the next frame
-			var update_time = get_time();			
+			var update_time = get_time();
 			
 			var top_frame = Math.floor(update_time / (display_time - fade_time));						
 			var frame_start_time = top_frame * (display_time - fade_time);			
@@ -209,8 +230,9 @@
 		// Pre-load the first two images then start a timer	
 		get_image_info(0, function(){			
 			get_image_info(1, function(){
-				start_time = get_time();				
+				start_time = get_time();
 				setInterval(update, frame_time);
+				setInterval(updateCalc, 1000);
 			})
 		});						
 		

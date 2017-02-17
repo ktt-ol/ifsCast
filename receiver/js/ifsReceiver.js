@@ -140,7 +140,7 @@ IfsReceiver.prototype.displayPhotos = function (photos) {
 
   $('#kenburns').kenburns({
     images: imagesUrls,
-    frames_per_second: 30,
+    frames_per_second: 24,
     display_time: 10000,
     fade_time: 2000,
     zoom: 1.05,
